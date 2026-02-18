@@ -1,4 +1,6 @@
+from dataclasses import dataclass
+
 @dataclass
 class ChamberState:
-    P: float
-    web: float
+    P: float        # pressure in the chamber
+    web: float      # web thickness
