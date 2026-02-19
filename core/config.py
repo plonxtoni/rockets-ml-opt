@@ -9,15 +9,18 @@ class Propellant:
     gamma: float
     R: float
 
-@dataclass(frozen=True)
-class BatesGrainGeometry(GrainGeometry):
-    L: float
-    r_i0: float
-    r_o: float
 
 @dataclass(frozen=True)
 class GrainGeometry:
     grain_type: str
+
+
+@dataclass(frozen=True)
+class BatesGrainGeometry(GrainGeometry):
+    L0: float    # initial grain length
+    r_i0: float  # initial inner radius
+    r_o: float   # outer radius
+
 
 @dataclass(frozen=True)
 class Nozzle:
