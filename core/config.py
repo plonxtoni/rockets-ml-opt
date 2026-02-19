@@ -5,7 +5,7 @@ class Propellant:
     rho: float
     a: float
     n: float
-    Tc: float
+    T_c: float
     gamma: float
     R: float
 
