@@ -2,17 +2,22 @@ import numpy as np
 from config import MotorConfig
 from geometry import throat_area
 
+
 def characteristic_velocity(config: MotorConfig):
     R = config.propellant.R
     T_c = config.propellant.T_c
     gamma = config.propellant.gamma
-    c_star_theoretical = np.sqrt((R * T_c) / gamma) * ((gamma + 1) / 2) ** ((gamma + 1) / (2 * (gamma - 1)))
+    c_star_theoretical = np.sqrt((R * T_c) / gamma) * ((gamma + 1) / 2) ** (
+        (gamma + 1) / (2 * (gamma - 1))
+    )
     return config.combustion.eta_cstar * c_star_theoretical
+
 
 def mass_flow(P_c, config: MotorConfig):
     A_t = throat_area(config.nozzle)
     c_star = characteristic_velocity(config)
     return (P_c * A_t) / c_star
+
 
 def thrust(P_c, P_amb, config: MotorConfig):
     gamma = config.propellant.gamma
@@ -25,4 +30,3 @@ def thrust(P_c, P_amb, config: MotorConfig):
     )
     Cf = config.combustion.eta_cf * Cf_theoretical
     return Cf * P_c * A_t
-
