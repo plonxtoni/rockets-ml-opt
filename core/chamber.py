@@ -1,7 +1,11 @@
-from geometry import chamber_volume, burning_area, throat_area
-from combustion import burn_rate
-from nozzle import characteristic_velocity
-from config import MotorConfig
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent)) 
+
+from core.geometry import chamber_volume, burning_area, throat_area
+from core.combustion import burn_rate
+from core.nozzle import characteristic_velocity
+from core.config import MotorConfig
 
 
 def rhs(

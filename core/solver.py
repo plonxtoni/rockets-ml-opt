@@ -1,11 +1,13 @@
 from scipy.integrate import solve_ivp
 from dataclasses import dataclass
 import numpy as np
-
-from config import MotorConfig
-from chamber import rhs
-from geometry import current_bates_grain_geometry, burning_area, burnout_web
-from nozzle import thrust as compute_thrust, mass_flow, characteristic_velocity
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent)) 
+from core.config import MotorConfig
+from core.chamber import rhs
+from core.geometry import current_bates_grain_geometry, burning_area, burnout_web
+from core.nozzle import thrust as compute_thrust, mass_flow, characteristic_velocity
 
 
 @dataclass

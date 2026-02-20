@@ -1,6 +1,8 @@
 import numpy as np
-from config import GrainGeometry, Nozzle
-
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent)) 
+from core.config import GrainGeometry, Nozzle
 
 def current_bates_grain_geometry(web, geom: GrainGeometry):
     r_i = (
