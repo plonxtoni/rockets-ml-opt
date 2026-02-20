@@ -1,5 +1,9 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent)) 
+
 import time
-import datetime
+from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 from core.config import Propellant, BatesGrainGeometry, Nozzle, CombustionModel, MotorConfig
@@ -76,7 +80,7 @@ print(f"-------------------------------------------------")
 print()
 
 status("Saving results...", t0)
-sim_results = make_result(result)
+sim_results = make_result(result, config, P_amb=101325.0)
 sim_results_save_path = f'results/data_simulation_results_{timestamp}.npy'
 np.save(sim_results, sim_results_save_path, allow_pickle=True)
 
