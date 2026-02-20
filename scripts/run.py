@@ -60,7 +60,7 @@ result = simulate(t_span, y0, config, method='RK45', rtol=1e-6, atol=1e-8)
 status(f"Solution complete — {len(result.t)} steps, converged={result.converged}", t0)
 
 # Print summary of results
-print("Summary of results": )
+print("Summary of results:")
 print(f"|Burn time: {result.burn_time:.3f} s            |")
 print(f"-------------------------------------------------")
 print(f"|Peak pressure: {result.P_c.max():.6f} Pa       |")
