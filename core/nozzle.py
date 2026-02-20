@@ -1,19 +1,28 @@
 import numpy as np
+from config import MotorConfig
 from geometry import throat_area
 
-def characteristic_velocity(propellant):
-    R = propellant.R
-    T_c = propellant.T_c
-    gamma = propellant.gamma
-    return np.sqrt((R*T_c)/gamma) * ((gamma+1)/2)**((gamma+1)/(2*(gamma-1)))
+def characteristic_velocity(config: MotorConfig):
+    R = config.propellant.R
+    T_c = config.propellant.T_c
+    gamma = config.propellant.gamma
+    c_star_theoretical = np.sqrt((R * T_c) / gamma) * ((gamma + 1) / 2) ** ((gamma + 1) / (2 * (gamma - 1)))
+    return config.combustion.eta_cstar * c_star_theoretical
 
-def mass_flow(P_c, propellant, nozzle):
-    A_t = throat_area(nozzle)
-    c = characteristic_velocity(propellant)
-    return (P_c*A_t)/c
+def mass_flow(P_c, config: MotorConfig):
+    A_t = throat_area(config.nozzle)
+    c_star = characteristic_velocity(config)
+    return (P_c * A_t) / c_star
 
-def thrust(P_c, P_amb, Propellant):
-    gamma = propellant.gamma
+def thrust(P_c, P_amb, config: MotorConfig):
+    gamma = config.propellant.gamma
+    A_t = throat_area(config.nozzle)
     pressure_ratio_term = 1 - (P_amb / P_c) ** ((gamma - 1) / gamma)
-    Cf = math.sqrt((2 * gamma**2 / (gamma - 1)) * (2 / (gamma + 1)) ** ((gamma + 1) / (gamma - 1)) * pressure_ratio_term)   # assuming perfectly expanded nozzle
-    return = Cf * P_c * At
+    Cf_theoretical = np.sqrt(
+        (2 * gamma**2 / (gamma - 1))
+        * (2 / (gamma + 1)) ** ((gamma + 1) / (gamma - 1))
+        * pressure_ratio_term
+    )
+    Cf = config.combustion.eta_cf * Cf_theoretical
+    return Cf * P_c * A_t
+
