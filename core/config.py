@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 @dataclass(frozen=True)
 class Propellant:
@@ -26,9 +26,16 @@ class BatesGrainGeometry(GrainGeometry):
 class Nozzle:
     throat_radius: float
 
+    
+@dataclass(frozen=True)
+class CombustionModel:
+    eta_cstar: float = 1.0
+    eta_cf: float = 1.0
+
 
 @dataclass
 class MotorConfig:
     propellant: Propellant
     nozzle: Nozzle
-    grgeom: GrainGeometry
+    geom: GrainGeometry
+    combustion: CombustionModel = field(default_factory=CombustionModel)
