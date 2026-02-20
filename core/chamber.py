@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent)) 
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.geometry import chamber_volume, burning_area, throat_area
 from core.combustion import burn_rate
