@@ -89,24 +89,23 @@ print(f"-------------------------------------------------")
 print()
 
 status("Saving results...", t0)
-sim_results = make_result(result, config, P_amb=101325.0)
 sim_results_save_path = f"results/data_simulation_results_{timestamp}.npy"
-np.save(sim_results, sim_results_save_path, allow_pickle=True)
+np.save(sim_results_save_path, result, allow_pickle=True)
 
 # Plotting
 status("Plotting...", t0)
-fig, ax = plt.subplots(2, 3, figsize=(15, 8), constrained_layput=True)
+fig, ax = plt.subplots(2, 3, figsize=(15, 8), constrained_layout=True)
 fig.suptitle("Solid Motor Simulation", fontweight="bold")
 
 plot_signal_window(
-    ax[0, 0], result.t, result.P_c, "P_c [Pa]", "Chamber Pressure", fmt=".3f"
+    ax[0, 0], result.t, result.P_c, "P_c [Pa]", "Chamber Pressure", display_precision=".3f"
 )
-plot_signal_window(ax[0, 1], result.t, result.thrust, "Thrust [N]", "Thrust", fmt=".1f")
+plot_signal_window(ax[0, 1], result.t, result.thrust, "Thrust [N]", "Thrust", display_precision=".1f")
 plot_signal_window(
-    ax[0, 2], result.t, result.m_dot, "ṁ [kg/s]", "Mass Flow Rate", fmt=".4f"
+    ax[0, 2], result.t, result.m_dot, "ṁ [kg/s]", "Mass Flow Rate", display_precision=".4f"
 )
 plot_signal_window(
-    ax[1, 0], result.t, result.A_b * 1e6, "A_b [mm²]", "Burning Area", fmt=".2f"
+    ax[1, 0], result.t, result.A_b * 1e6, "A_b [mm²]", "Burning Area", display_precision=".2f"
 )
 plot_signal_window(
     ax[1, 1], result.t, result.r_i * 1e3, "r_i [mm]", "Inner Radius", show_peak=False
