@@ -1,0 +1,1 @@
+# generate data set by sweeping through parameters, dataclasses, etc
