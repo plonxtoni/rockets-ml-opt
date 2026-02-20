@@ -73,20 +73,20 @@ result = simulate(t_span, y0, config, method="RK45", rtol=1e-6, atol=1e-8)
 status(f"Solution complete — {len(result.t)} steps, converged={result.converged}", t0)
 
 # Print summary of results
-print("Summary of results:")
-print(f"|Burn time: {result.burn_time:.3f} s            |")
+print("\n              Summary of results                ")
 print(f"-------------------------------------------------")
-print(f"|Peak pressure: {result.P_c.max():.6f} Pa       |")
+print(f"|Burn time:      |  {result.burn_time:.4f} s")
 print(f"-------------------------------------------------")
-print(f"|Peak thrust: {result.thrust.max():.1f} N       |")
+print(f"|Peak pressure:  |  {result.P_c.max()/1e6:.4f} MPa")
 print(f"-------------------------------------------------")
-print(f"|Total impulse: {result.total_impulse:.1f} N·s  |")
+print(f"|Peak thrust:    |  {result.thrust.max():.4f} N")
 print(f"-------------------------------------------------")
-print(f"|Burned mass: {result.burned_mass*1000:.1f} g   |")
+print(f"|Total impulse:  |  {result.total_impulse:.4f} N·s")
 print(f"-------------------------------------------------")
-print(f"|c* (actual): {result.c_star:.1f} m/s           |")
+print(f"|Burned mass:    |  {result.burned_mass*1000:.4f} g")
 print(f"-------------------------------------------------")
-print()
+print(f"|c* (actual):    |  {result.c_star:.4f} m/s")
+print(f"-------------------------------------------------")
 
 status("Saving results...", t0)
 sim_results_save_path = f"results/data_simulation_results_{timestamp}.npy"
@@ -98,14 +98,14 @@ fig, ax = plt.subplots(2, 3, figsize=(15, 8), constrained_layout=True)
 fig.suptitle("Solid Motor Simulation", fontweight="bold")
 
 plot_signal_window(
-    ax[0, 0], result.t, result.P_c, "P_c [Pa]", "Chamber Pressure", display_precision=".3f"
+    ax[0, 0], result.t, result.P_c/1e6, "P_c [MPa]", "Chamber Pressure", display_precision=".5f"
 )
-plot_signal_window(ax[0, 1], result.t, result.thrust, "Thrust [N]", "Thrust", display_precision=".1f")
+plot_signal_window(ax[0, 1], result.t, result.thrust, "Thrust [N]", "Thrust", display_precision=".5f")
 plot_signal_window(
-    ax[0, 2], result.t, result.m_dot, "ṁ [kg/s]", "Mass Flow Rate", display_precision=".4f"
+    ax[0, 2], result.t, result.m_dot, "ṁ [kg/s]", "Mass Flow Rate", display_precision=".5f"
 )
 plot_signal_window(
-    ax[1, 0], result.t, result.A_b * 1e6, "A_b [mm²]", "Burning Area", display_precision=".2f"
+    ax[1, 0], result.t, result.A_b, "A_b [m²]", "Burning Area", display_precision=".5f"
 )
 plot_signal_window(
     ax[1, 1], result.t, result.r_i * 1e3, "r_i [mm]", "Inner Radius", show_peak=False

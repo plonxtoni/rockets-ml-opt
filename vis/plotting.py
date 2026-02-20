@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 def mark_peak(ax, values, display_precision=".4g", line_color="tab:red"):
     peak = values.max()
-    ax.axhline(peak, color=line_color, linewidth=1.0, linestyle=":", zorder=3)
+    ax.axhline(peak, color=line_color, linewidth=1.0, linestyle="--", zorder=3)
     ax.annotate(
         f"max = {peak:{display_precision}}",
         xy=(0.98, peak),
@@ -34,7 +34,7 @@ def plot_signal_window(
     title,
     display_precision=".4g",
     show_peak=True,
-    line_color="tab:blue",
+    line_color="tab:gray",
 ):
     ax.plot(t, values, color=line_color, linewidth=1.6)
     ax.set(xlabel="t [s]", ylabel=ylabel, title=title)
